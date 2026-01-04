@@ -55,9 +55,49 @@ export function lessonPlanToDriverSteps(lessonPlan: LessonPlan): DriveStep[] {
 }
 
 /**
- * 验证选择器是否在页面中存在
+ * 选择器安全限制常量
+ */
+const SELECTOR_MAX_LENGTH = 500;
+const SELECTOR_MAX_PARTS = 20;
+
+/**
+ * 危险选择器模式
+ */
+const DANGEROUS_SELECTOR_PATTERNS = [
+  /\*:not\(:not/i,      // 递归 :not
+  /:has\(.+:has/i,      // 嵌套 :has
+  /::?-webkit-/i,       // Webkit 私有选择器
+  /::?-moz-/i,          // Mozilla 私有选择器
+  /expression\s*\(/i,   // CSS expression (IE)
+  /javascript:/i,       // JavaScript protocol
+];
+
+/**
+ * 验证选择器是否在页面中存在且安全
  */
 export function validateSelector(selector: string): boolean {
+  // 空选择器无效
+  if (!selector || typeof selector !== 'string') {
+    return false;
+  }
+
+  // 长度限制
+  if (selector.length > SELECTOR_MAX_LENGTH) {
+    return false;
+  }
+
+  // 复杂度限制（空格分隔的部分数量）
+  if (selector.split(/\s+/).length > SELECTOR_MAX_PARTS) {
+    return false;
+  }
+
+  // 检查危险模式
+  for (const pattern of DANGEROUS_SELECTOR_PATTERNS) {
+    if (pattern.test(selector)) {
+      return false;
+    }
+  }
+
   try {
     const element = document.querySelector(selector);
     return element !== null;

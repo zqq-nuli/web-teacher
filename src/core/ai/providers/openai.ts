@@ -59,27 +59,43 @@ export class OpenAIProvider implements AIProvider {
       throw new Error('Empty response from OpenAI');
     }
 
-    const parsed = JSON.parse(responseContent);
+    let parsed: Record<string, unknown>;
+    try {
+      parsed = JSON.parse(responseContent);
+    } catch {
+      logger.error('Failed to parse OpenAI response as JSON');
+      throw new Error('Invalid JSON response from OpenAI');
+    }
 
     // 转换为 LessonPlan 格式
     const lessonPlan: LessonPlan = {
       id: `lesson-${Date.now()}`,
       url: content.url,
-      title: parsed.title || content.title,
+      title: String(parsed.title || content.title),
       createdAt: Date.now(),
-      steps: (parsed.steps || []).map((step: any, index: number): LessonStep => ({
-        id: step.id || `step-${index + 1}`,
-        order: step.order || index + 1,
-        title: step.title || `步骤 ${index + 1}`,
-        content: step.content || '',
-        targetSelector: content.elements[step.targetElementIndex]?.selector,
-        highlightType: step.highlightType || 'element',
-        popoverPosition: step.popoverPosition || 'bottom',
+      steps: (Array.isArray(parsed.steps) ? parsed.steps : []).map((step: Record<string, unknown>, index: number): LessonStep => ({
+        id: String(step.id || `step-${index + 1}`),
+        order: Number(step.order) || index + 1,
+        title: String(step.title || `步骤 ${index + 1}`),
+        content: String(step.content || ''),
+        targetSelector: typeof step.targetElementIndex === 'number'
+          ? content.elements[step.targetElementIndex]?.selector
+          : undefined,
+        highlightType: (['element', 'section', 'modal'].includes(String(step.highlightType))
+          ? String(step.highlightType)
+          : 'element') as LessonStep['highlightType'],
+        popoverPosition: (['top', 'bottom', 'left', 'right'].includes(String(step.popoverPosition))
+          ? String(step.popoverPosition)
+          : 'bottom') as LessonStep['popoverPosition'],
       })),
       metadata: {
-        estimatedTime: parsed.metadata?.estimatedTime || 10,
-        difficulty: parsed.metadata?.difficulty || 'beginner',
-        keywords: parsed.metadata?.keywords || [],
+        estimatedTime: Number((parsed.metadata as Record<string, unknown>)?.estimatedTime) || 10,
+        difficulty: (['beginner', 'intermediate', 'advanced'].includes(String((parsed.metadata as Record<string, unknown>)?.difficulty))
+          ? String((parsed.metadata as Record<string, unknown>)?.difficulty)
+          : 'beginner') as LessonPlan['metadata']['difficulty'],
+        keywords: Array.isArray((parsed.metadata as Record<string, unknown>)?.keywords)
+          ? ((parsed.metadata as Record<string, unknown>).keywords as string[]).map(String)
+          : [],
       },
     };
 

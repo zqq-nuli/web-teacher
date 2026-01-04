@@ -48,7 +48,29 @@ export default defineContentScript({
     ui.mount();
 
     // 监听来自Popup/Background的消息
-    browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+    browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+      // 验证消息来源 - 只接受来自本扩展的消息
+      if (sender.id !== browser.runtime.id) {
+        logger.warn('拒绝来自未知来源的消息', { senderId: sender.id });
+        sendResponse({ success: false, error: '未授权的消息来源' });
+        return false;
+      }
+
+      // 验证消息类型白名单
+      const allowedTypes = [
+        'EXTRACT_CONTENT', 'START_GUIDE', 'STOP_GUIDE', 'PAUSE_GUIDE',
+        'RESUME_GUIDE', 'NEXT_STEP', 'PREV_STEP', 'GO_TO_STEP',
+        'GET_GUIDE_STATE', 'TOGGLE_TTS', 'SPEAK_TEXT', 'STOP_TTS',
+        'GET_TTS_VOICES', 'SHOW_PANEL', 'HIDE_PANEL', 'UPDATE_STEP',
+        'GUIDE_COMPLETED'
+      ];
+
+      if (!message?.type || !allowedTypes.includes(message.type)) {
+        logger.warn('未知的消息类型', { type: message?.type });
+        sendResponse({ success: false, error: '未知消息类型' });
+        return false;
+      }
+
       logger.debug('收到消息', message);
 
       // 处理异步消息
@@ -228,23 +250,23 @@ function stopGuide(): { success: boolean } {
 /**
  * 暂停引导
  */
-function pauseGuide(): { success: boolean } {
+function pauseGuide(): { success: boolean; error?: string } {
   if (guideSystem) {
     guideSystem.pause();
     return { success: true };
   }
-  return { success: false, error: '引导系统未运行' } as any;
+  return { success: false, error: '引导系统未运行' };
 }
 
 /**
  * 恢复引导
  */
-function resumeGuide(): { success: boolean } {
+function resumeGuide(): { success: boolean; error?: string } {
   if (guideSystem) {
     guideSystem.resume();
     return { success: true };
   }
-  return { success: false, error: '引导系统未运行' } as any;
+  return { success: false, error: '引导系统未运行' };
 }
 
 /**
