@@ -1,4 +1,5 @@
 import React from 'react';
+import { t } from '@/utils/i18n';
 
 interface ControlButtonsProps {
   isPlaying: boolean;
@@ -38,7 +39,7 @@ export function ControlButtons({
           className="wt-btn wt-btn-nav"
           onClick={onPrevious}
           disabled={!canGoPrevious}
-          title="上一步"
+          title={t('control_previous')}
         >
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
@@ -49,7 +50,7 @@ export function ControlButtons({
         <button
           className="wt-btn wt-btn-primary"
           onClick={onPlayPause}
-          title={isPaused ? '继续' : '暂停'}
+          title={isPaused ? t('control_resume') : t('control_pause')}
         >
           {isPaused ? (
             <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
@@ -67,7 +68,7 @@ export function ControlButtons({
           className="wt-btn wt-btn-nav"
           onClick={onNext}
           disabled={!canGoNext}
-          title="下一步"
+          title={t('control_next')}
         >
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
@@ -80,7 +81,7 @@ export function ControlButtons({
         <button
           className={`wt-btn wt-btn-icon ${isTTSEnabled ? 'wt-btn-active' : ''}`}
           onClick={onToggleTTS}
-          title={isTTSEnabled ? '关闭语音' : '开启语音'}
+          title={isTTSEnabled ? t('control_tts_on') : t('control_tts_off')}
         >
           {isTTSEnabled ? (
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
@@ -98,7 +99,7 @@ export function ControlButtons({
         <button
           className="wt-btn wt-btn-icon wt-btn-danger"
           onClick={onStop}
-          title="停止学习"
+          title={t('control_stop')}
         >
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
             <path d="M6 6h12v12H6z" />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { t } from '@/utils/i18n';
 import type { LessonStep } from '@/types';
 
 interface StepContentProps {
@@ -14,7 +15,7 @@ export function StepContent({ step, currentIndex, totalSteps }: StepContentProps
   if (!step) {
     return (
       <div className="wt-step-content wt-step-empty">
-        <p>暂无教案内容</p>
+        <p>{t('panel_empty_content')}</p>
       </div>
     );
   }

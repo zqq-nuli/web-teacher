@@ -1,6 +1,6 @@
 import type { LessonPlan, ExtractedContent, AISettings } from '@/types';
 import type { AIProvider } from './base';
-import { LESSON_PLAN_SYSTEM_PROMPT, generateLessonPlanPrompt, CHAT_SYSTEM_PROMPT, generateChatPrompt } from '../prompts';
+import { getLessonPlanSystemPrompt, generateLessonPlanPrompt, getChatSystemPrompt, generateChatPrompt } from '../prompts';
 import { logger } from '@/utils/logger';
 import { parseLessonPlanResponse } from './parser';
 
@@ -44,7 +44,7 @@ export class AnthropicProvider implements AIProvider {
     const response = await this.makeRequest('/v1/messages', {
       model: settings.model,
       max_tokens: 4096,
-      system: LESSON_PLAN_SYSTEM_PROMPT,
+      system: getLessonPlanSystemPrompt(),
       messages: [
         { role: 'user', content: generateLessonPlanPrompt(content) },
       ],
@@ -80,7 +80,7 @@ export class AnthropicProvider implements AIProvider {
     const response = await this.makeRequest('/v1/messages', {
       model: settings.model,
       max_tokens: 2048,
-      system: CHAT_SYSTEM_PROMPT,
+      system: getChatSystemPrompt(),
       messages: [
         { role: 'user', content: generateChatPrompt(message, context) },
       ],

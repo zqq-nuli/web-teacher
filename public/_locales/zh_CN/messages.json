@@ -1,0 +1,257 @@
+{
+  "ext_name": {
+    "message": "网页教师 - Web Teacher",
+    "description": "Extension name"
+  },
+  "ext_description": {
+    "message": "将网页教程转化为交互式引导教学体验",
+    "description": "Extension description"
+  },
+
+  "popup_title": {
+    "message": "📚 网页教师",
+    "description": "Popup header title"
+  },
+  "popup_subtitle": {
+    "message": "将网页教程转化为交互式学习体验",
+    "description": "Popup subtitle"
+  },
+  "popup_start_learning": {
+    "message": "🎓 开始学习当前页面",
+    "description": "Start learning button"
+  },
+  "popup_missing_api_key": {
+    "message": "⚠️ 请先配置API Key",
+    "description": "Missing API key warning"
+  },
+  "popup_status_extracting": {
+    "message": "📖 正在分析页面...",
+    "description": "Extracting content status"
+  },
+  "popup_status_generating": {
+    "message": "🤖 AI正在生成教案...",
+    "description": "Generating lesson plan status"
+  },
+  "popup_status_starting": {
+    "message": "🚀 正在启动引导...",
+    "description": "Starting guide status"
+  },
+  "popup_status_error": {
+    "message": "❌ 发生错误，点击重试",
+    "description": "Error status"
+  },
+
+  "popup_ai_config": {
+    "message": "🤖 AI 配置",
+    "description": "AI configuration section title"
+  },
+  "popup_ai_provider": {
+    "message": "AI 提供商",
+    "description": "AI provider label"
+  },
+  "popup_ai_provider_openai": {
+    "message": "OpenAI",
+    "description": "OpenAI option"
+  },
+  "popup_ai_provider_anthropic": {
+    "message": "Anthropic (Claude)",
+    "description": "Anthropic option"
+  },
+  "popup_api_key": {
+    "message": "API Key",
+    "description": "API key label"
+  },
+  "popup_api_key_placeholder_openai": {
+    "message": "输入你的 OpenAI API Key",
+    "description": "OpenAI API key placeholder"
+  },
+  "popup_api_key_placeholder_anthropic": {
+    "message": "输入你的 Anthropic API Key",
+    "description": "Anthropic API key placeholder"
+  },
+  "popup_model": {
+    "message": "模型",
+    "description": "Model label"
+  },
+  "popup_base_url": {
+    "message": "自定义 Base URL (可选)",
+    "description": "Base URL label"
+  },
+  "popup_base_url_placeholder": {
+    "message": "例如: https://api.openai.com/v1",
+    "description": "Base URL placeholder"
+  },
+
+  "popup_tts_config": {
+    "message": "🔊 语音配置",
+    "description": "TTS configuration section title"
+  },
+  "popup_tts_enable": {
+    "message": "启用语音播报",
+    "description": "Enable TTS checkbox label"
+  },
+  "popup_tts_engine": {
+    "message": "语音引擎",
+    "description": "TTS engine label"
+  },
+  "popup_tts_native": {
+    "message": "浏览器原生 (免费)",
+    "description": "Native TTS option"
+  },
+  "popup_tts_openai": {
+    "message": "OpenAI TTS",
+    "description": "OpenAI TTS option"
+  },
+  "popup_tts_rate": {
+    "message": "语速: $1x",
+    "description": "TTS rate label",
+    "placeholders": {
+      "1": {
+        "content": "$1",
+        "example": "1.0"
+      }
+    }
+  },
+
+  "popup_guide_config": {
+    "message": "⚙️ 引导配置",
+    "description": "Guide configuration section title"
+  },
+  "popup_auto_advance": {
+    "message": "自动进入下一步",
+    "description": "Auto advance checkbox label"
+  },
+  "popup_auto_delay": {
+    "message": "自动延迟: $1秒",
+    "description": "Auto advance delay label",
+    "placeholders": {
+      "1": {
+        "content": "$1",
+        "example": "3.0"
+      }
+    }
+  },
+  "popup_show_progress": {
+    "message": "显示学习进度",
+    "description": "Show progress checkbox label"
+  },
+
+  "panel_expand": {
+    "message": "展开",
+    "description": "Panel expand button title"
+  },
+  "panel_minimize": {
+    "message": "最小化",
+    "description": "Panel minimize button title"
+  },
+  "panel_close": {
+    "message": "关闭",
+    "description": "Panel close button title"
+  },
+  "panel_step_info": {
+    "message": "第 $1 / $2 步",
+    "description": "Step info text",
+    "placeholders": {
+      "1": {
+        "content": "$1",
+        "example": "1"
+      },
+      "2": {
+        "content": "$2",
+        "example": "10"
+      }
+    }
+  },
+  "panel_empty_content": {
+    "message": "暂无教案内容",
+    "description": "Empty content placeholder"
+  },
+
+  "control_previous": {
+    "message": "上一步",
+    "description": "Previous button title"
+  },
+  "control_next": {
+    "message": "下一步",
+    "description": "Next button title"
+  },
+  "control_resume": {
+    "message": "继续",
+    "description": "Resume button title"
+  },
+  "control_pause": {
+    "message": "暂停",
+    "description": "Pause button title"
+  },
+  "control_tts_on": {
+    "message": "关闭语音",
+    "description": "TTS on button title"
+  },
+  "control_tts_off": {
+    "message": "开启语音",
+    "description": "TTS off button title"
+  },
+  "control_stop": {
+    "message": "停止学习",
+    "description": "Stop button title"
+  },
+
+  "progress_step": {
+    "message": "第 $1 步",
+    "description": "Progress step button title",
+    "placeholders": {
+      "1": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+
+  "guide_next": {
+    "message": "下一步",
+    "description": "Driver.js next button"
+  },
+  "guide_prev": {
+    "message": "上一步",
+    "description": "Driver.js previous button"
+  },
+  "guide_done": {
+    "message": "完成",
+    "description": "Driver.js done button"
+  },
+  "guide_progress": {
+    "message": "第 $1 步，共 $2 步",
+    "description": "Driver.js progress text",
+    "placeholders": {
+      "1": {
+        "content": "$1",
+        "example": "1"
+      },
+      "2": {
+        "content": "$2",
+        "example": "10"
+      }
+    }
+  },
+
+  "error_no_tab": {
+    "message": "无法获取当前标签页",
+    "description": "No active tab error"
+  },
+  "error_extract_failed": {
+    "message": "内容提取失败",
+    "description": "Content extraction failed"
+  },
+  "error_generate_failed": {
+    "message": "教案生成失败",
+    "description": "Lesson generation failed"
+  },
+  "error_guide_failed": {
+    "message": "引导启动失败",
+    "description": "Guide start failed"
+  },
+  "error_unknown": {
+    "message": "未知错误",
+    "description": "Unknown error"
+  }
+}

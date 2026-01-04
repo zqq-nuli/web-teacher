@@ -1,4 +1,5 @@
 import React from 'react';
+import { t } from '@/utils/i18n';
 
 interface ProgressBarProps {
   current: number;
@@ -27,7 +28,7 @@ export function ProgressBar({ current, total, onStepClick }: ProgressBarProps) {
               key={i}
               className={`wt-progress-dot ${i === current ? 'wt-progress-dot-active' : ''} ${i < current ? 'wt-progress-dot-completed' : ''}`}
               onClick={() => onStepClick?.(i)}
-              title={`第 ${i + 1} 步`}
+              title={t('progress_step', String(i + 1))}
             />
           ))}
         </div>

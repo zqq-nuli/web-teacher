@@ -1,4 +1,5 @@
 import type { Config, PopoverDOM } from 'driver.js';
+import { t } from '@/utils/i18n';
 
 /**
  * Driver.js 主题配置
@@ -140,10 +141,10 @@ export function getDriverConfig(options?: Partial<Config>): Config {
     disableActiveInteraction: false,
 
     // 按钮文本
-    nextBtnText: '下一步',
-    prevBtnText: '上一步',
-    doneBtnText: '完成',
-    progressText: '第 {{current}} 步，共 {{total}} 步',
+    nextBtnText: t('guide_next'),
+    prevBtnText: t('guide_prev'),
+    doneBtnText: t('guide_done'),
+    progressText: t('guide_progress', ['{{current}}', '{{total}}']),
 
     // 覆盖自定义选项
     ...options,

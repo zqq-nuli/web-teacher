@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSettingsStore } from '@/store';
+import { t } from '@/utils/i18n';
 import type { AIProvider, TTSProvider, ExtractedContent, LessonPlan } from '@/types';
 import './App.css';
 
@@ -23,7 +24,7 @@ function App() {
       // 1. 获取当前标签页
       const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
       if (!tab?.id) {
-        throw new Error('无法获取当前标签页');
+        throw new Error(t('error_no_tab'));
       }
 
       // 2. 提取页面内容
@@ -34,7 +35,7 @@ function App() {
       };
 
       if (!extractResult.success || !extractResult.data) {
-        throw new Error(extractResult.error || '内容提取失败');
+        throw new Error(extractResult.error || t('error_extract_failed'));
       }
 
       setStatus('generating');
@@ -50,7 +51,7 @@ function App() {
       };
 
       if (!lessonResult.success || !lessonResult.data) {
-        throw new Error(lessonResult.error || '教案生成失败');
+        throw new Error(lessonResult.error || t('error_generate_failed'));
       }
 
       setStatus('starting');
@@ -68,13 +69,13 @@ function App() {
       };
 
       if (!guideResult.success) {
-        throw new Error(guideResult.error || '引导启动失败');
+        throw new Error(guideResult.error || t('error_guide_failed'));
       }
 
       // 成功，关闭弹窗
       window.close();
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : '未知错误';
+      const errorMessage = err instanceof Error ? err.message : t('error_unknown');
       setError(errorMessage);
       setStatus('error');
     }
@@ -83,15 +84,15 @@ function App() {
   const getButtonText = () => {
     switch (status) {
       case 'extracting':
-        return '📖 正在分析页面...';
+        return t('popup_status_extracting');
       case 'generating':
-        return '🤖 AI正在生成教案...';
+        return t('popup_status_generating');
       case 'starting':
-        return '🚀 正在启动引导...';
+        return t('popup_status_starting');
       case 'error':
-        return '❌ 发生错误，点击重试';
+        return t('popup_status_error');
       default:
-        return ai.apiKey ? '🎓 开始学习当前页面' : '⚠️ 请先配置API Key';
+        return ai.apiKey ? t('popup_start_learning') : t('popup_missing_api_key');
     }
   };
 
@@ -100,8 +101,8 @@ function App() {
   return (
     <div className="popup-container">
       <header className="popup-header">
-        <h1>📚 网页教师</h1>
-        <p className="subtitle">将网页教程转化为交互式学习体验</p>
+        <h1>{t('popup_title')}</h1>
+        <p className="subtitle">{t('popup_subtitle')}</p>
       </header>
 
       <main className="popup-content">
@@ -123,10 +124,10 @@ function App() {
 
         {/* AI配置 */}
         <section className="config-section">
-          <h2>🤖 AI 配置</h2>
+          <h2>{t('popup_ai_config')}</h2>
 
           <div className="form-group">
-            <label>AI 提供商</label>
+            <label>{t('popup_ai_provider')}</label>
             <select
               value={ai.provider}
               onChange={(e) => setAISettings({
@@ -134,23 +135,23 @@ function App() {
                 model: AI_MODELS[e.target.value as AIProvider][0]
               })}
             >
-              <option value="openai">OpenAI</option>
-              <option value="anthropic">Anthropic (Claude)</option>
+              <option value="openai">{t('popup_ai_provider_openai')}</option>
+              <option value="anthropic">{t('popup_ai_provider_anthropic')}</option>
             </select>
           </div>
 
           <div className="form-group">
-            <label>API Key</label>
+            <label>{t('popup_api_key')}</label>
             <input
               type="password"
-              placeholder={`输入你的 ${ai.provider === 'openai' ? 'OpenAI' : 'Anthropic'} API Key`}
+              placeholder={ai.provider === 'openai' ? t('popup_api_key_placeholder_openai') : t('popup_api_key_placeholder_anthropic')}
               value={ai.apiKey}
               onChange={(e) => setAISettings({ apiKey: e.target.value })}
             />
           </div>
 
           <div className="form-group">
-            <label>模型</label>
+            <label>{t('popup_model')}</label>
             <select
               value={ai.model}
               onChange={(e) => setAISettings({ model: e.target.value })}
@@ -164,10 +165,10 @@ function App() {
           </div>
 
           <div className="form-group">
-            <label>自定义 Base URL (可选)</label>
+            <label>{t('popup_base_url')}</label>
             <input
               type="text"
-              placeholder="例如: https://api.openai.com/v1"
+              placeholder={t('popup_base_url_placeholder')}
               value={ai.baseUrl || ''}
               onChange={(e) => setAISettings({ baseUrl: e.target.value || undefined })}
             />
@@ -176,7 +177,7 @@ function App() {
 
         {/* TTS配置 */}
         <section className="config-section">
-          <h2>🔊 语音配置</h2>
+          <h2>{t('popup_tts_config')}</h2>
 
           <div className="form-group checkbox-group">
             <label>
@@ -185,24 +186,24 @@ function App() {
                 checked={tts.enabled}
                 onChange={(e) => setTTSSettings({ enabled: e.target.checked })}
               />
-              启用语音播报
+              {t('popup_tts_enable')}
             </label>
           </div>
 
           <div className="form-group">
-            <label>语音引擎</label>
+            <label>{t('popup_tts_engine')}</label>
             <select
               value={tts.provider}
               onChange={(e) => setTTSSettings({ provider: e.target.value as TTSProvider })}
               disabled={!tts.enabled}
             >
-              <option value="native">浏览器原生 (免费)</option>
-              <option value="openai">OpenAI TTS</option>
+              <option value="native">{t('popup_tts_native')}</option>
+              <option value="openai">{t('popup_tts_openai')}</option>
             </select>
           </div>
 
           <div className="form-group">
-            <label>语速: {tts.rate.toFixed(1)}x</label>
+            <label>{t('popup_tts_rate', tts.rate.toFixed(1))}</label>
             <input
               type="range"
               min="0.5"
@@ -217,7 +218,7 @@ function App() {
 
         {/* 引导配置 */}
         <section className="config-section">
-          <h2>⚙️ 引导配置</h2>
+          <h2>{t('popup_guide_config')}</h2>
 
           <div className="form-group checkbox-group">
             <label>
@@ -226,13 +227,13 @@ function App() {
                 checked={guide.autoAdvance}
                 onChange={(e) => setGuideSettings({ autoAdvance: e.target.checked })}
               />
-              自动进入下一步
+              {t('popup_auto_advance')}
             </label>
           </div>
 
           {guide.autoAdvance && (
             <div className="form-group">
-              <label>自动延迟: {(guide.autoAdvanceDelay / 1000).toFixed(1)}秒</label>
+              <label>{t('popup_auto_delay', (guide.autoAdvanceDelay / 1000).toFixed(1))}</label>
               <input
                 type="range"
                 min="1000"
@@ -251,7 +252,7 @@ function App() {
                 checked={guide.showProgress}
                 onChange={(e) => setGuideSettings({ showProgress: e.target.checked })}
               />
-              显示学习进度
+              {t('popup_show_progress')}
             </label>
           </div>
         </section>

@@ -1,0 +1,257 @@
+{
+  "ext_name": {
+    "message": "Web Teacher",
+    "description": "Extension name"
+  },
+  "ext_description": {
+    "message": "Transform web tutorials into interactive guided learning experiences",
+    "description": "Extension description"
+  },
+
+  "popup_title": {
+    "message": "📚 Web Teacher",
+    "description": "Popup header title"
+  },
+  "popup_subtitle": {
+    "message": "Transform web tutorials into interactive learning",
+    "description": "Popup subtitle"
+  },
+  "popup_start_learning": {
+    "message": "🎓 Start Learning This Page",
+    "description": "Start learning button"
+  },
+  "popup_missing_api_key": {
+    "message": "⚠️ Please configure API Key first",
+    "description": "Missing API key warning"
+  },
+  "popup_status_extracting": {
+    "message": "📖 Analyzing page...",
+    "description": "Extracting content status"
+  },
+  "popup_status_generating": {
+    "message": "🤖 AI generating lesson plan...",
+    "description": "Generating lesson plan status"
+  },
+  "popup_status_starting": {
+    "message": "🚀 Starting guide...",
+    "description": "Starting guide status"
+  },
+  "popup_status_error": {
+    "message": "❌ Error occurred, click to retry",
+    "description": "Error status"
+  },
+
+  "popup_ai_config": {
+    "message": "🤖 AI Configuration",
+    "description": "AI configuration section title"
+  },
+  "popup_ai_provider": {
+    "message": "AI Provider",
+    "description": "AI provider label"
+  },
+  "popup_ai_provider_openai": {
+    "message": "OpenAI",
+    "description": "OpenAI option"
+  },
+  "popup_ai_provider_anthropic": {
+    "message": "Anthropic (Claude)",
+    "description": "Anthropic option"
+  },
+  "popup_api_key": {
+    "message": "API Key",
+    "description": "API key label"
+  },
+  "popup_api_key_placeholder_openai": {
+    "message": "Enter your OpenAI API Key",
+    "description": "OpenAI API key placeholder"
+  },
+  "popup_api_key_placeholder_anthropic": {
+    "message": "Enter your Anthropic API Key",
+    "description": "Anthropic API key placeholder"
+  },
+  "popup_model": {
+    "message": "Model",
+    "description": "Model label"
+  },
+  "popup_base_url": {
+    "message": "Custom Base URL (optional)",
+    "description": "Base URL label"
+  },
+  "popup_base_url_placeholder": {
+    "message": "e.g., https://api.openai.com/v1",
+    "description": "Base URL placeholder"
+  },
+
+  "popup_tts_config": {
+    "message": "🔊 Voice Configuration",
+    "description": "TTS configuration section title"
+  },
+  "popup_tts_enable": {
+    "message": "Enable voice narration",
+    "description": "Enable TTS checkbox label"
+  },
+  "popup_tts_engine": {
+    "message": "Voice engine",
+    "description": "TTS engine label"
+  },
+  "popup_tts_native": {
+    "message": "Browser native (free)",
+    "description": "Native TTS option"
+  },
+  "popup_tts_openai": {
+    "message": "OpenAI TTS",
+    "description": "OpenAI TTS option"
+  },
+  "popup_tts_rate": {
+    "message": "Speed: $1x",
+    "description": "TTS rate label",
+    "placeholders": {
+      "1": {
+        "content": "$1",
+        "example": "1.0"
+      }
+    }
+  },
+
+  "popup_guide_config": {
+    "message": "⚙️ Guide Configuration",
+    "description": "Guide configuration section title"
+  },
+  "popup_auto_advance": {
+    "message": "Auto advance to next step",
+    "description": "Auto advance checkbox label"
+  },
+  "popup_auto_delay": {
+    "message": "Auto delay: $1s",
+    "description": "Auto advance delay label",
+    "placeholders": {
+      "1": {
+        "content": "$1",
+        "example": "3.0"
+      }
+    }
+  },
+  "popup_show_progress": {
+    "message": "Show learning progress",
+    "description": "Show progress checkbox label"
+  },
+
+  "panel_expand": {
+    "message": "Expand",
+    "description": "Panel expand button title"
+  },
+  "panel_minimize": {
+    "message": "Minimize",
+    "description": "Panel minimize button title"
+  },
+  "panel_close": {
+    "message": "Close",
+    "description": "Panel close button title"
+  },
+  "panel_step_info": {
+    "message": "Step $1 / $2",
+    "description": "Step info text",
+    "placeholders": {
+      "1": {
+        "content": "$1",
+        "example": "1"
+      },
+      "2": {
+        "content": "$2",
+        "example": "10"
+      }
+    }
+  },
+  "panel_empty_content": {
+    "message": "No lesson content available",
+    "description": "Empty content placeholder"
+  },
+
+  "control_previous": {
+    "message": "Previous",
+    "description": "Previous button title"
+  },
+  "control_next": {
+    "message": "Next",
+    "description": "Next button title"
+  },
+  "control_resume": {
+    "message": "Resume",
+    "description": "Resume button title"
+  },
+  "control_pause": {
+    "message": "Pause",
+    "description": "Pause button title"
+  },
+  "control_tts_on": {
+    "message": "Mute voice",
+    "description": "TTS on button title"
+  },
+  "control_tts_off": {
+    "message": "Enable voice",
+    "description": "TTS off button title"
+  },
+  "control_stop": {
+    "message": "Stop learning",
+    "description": "Stop button title"
+  },
+
+  "progress_step": {
+    "message": "Step $1",
+    "description": "Progress step button title",
+    "placeholders": {
+      "1": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+
+  "guide_next": {
+    "message": "Next",
+    "description": "Driver.js next button"
+  },
+  "guide_prev": {
+    "message": "Previous",
+    "description": "Driver.js previous button"
+  },
+  "guide_done": {
+    "message": "Done",
+    "description": "Driver.js done button"
+  },
+  "guide_progress": {
+    "message": "Step $1 of $2",
+    "description": "Driver.js progress text",
+    "placeholders": {
+      "1": {
+        "content": "$1",
+        "example": "1"
+      },
+      "2": {
+        "content": "$2",
+        "example": "10"
+      }
+    }
+  },
+
+  "error_no_tab": {
+    "message": "Cannot access current tab",
+    "description": "No active tab error"
+  },
+  "error_extract_failed": {
+    "message": "Content extraction failed",
+    "description": "Content extraction failed"
+  },
+  "error_generate_failed": {
+    "message": "Lesson generation failed",
+    "description": "Lesson generation failed"
+  },
+  "error_guide_failed": {
+    "message": "Guide startup failed",
+    "description": "Guide start failed"
+  },
+  "error_unknown": {
+    "message": "Unknown error",
+    "description": "Unknown error"
+  }
+}

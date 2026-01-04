@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDraggable } from '@/hooks';
+import { t } from '@/utils/i18n';
 import { StepContent } from './StepContent';
 import { ControlButtons } from './ControlButtons';
 import { ProgressBar } from './ProgressBar';
@@ -111,7 +112,7 @@ export function FloatingPanel({
           <button
             className="wt-btn wt-btn-icon wt-btn-small"
             onClick={handleMinimize}
-            title={isMinimized ? '展开' : '最小化'}
+            title={isMinimized ? t('panel_expand') : t('panel_minimize')}
           >
             {isMinimized ? (
               <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
@@ -126,7 +127,7 @@ export function FloatingPanel({
           <button
             className="wt-btn wt-btn-icon wt-btn-small"
             onClick={onClose}
-            title="关闭"
+            title={t('panel_close')}
           >
             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
@@ -172,7 +173,7 @@ export function FloatingPanel({
       {/* 最小化状态提示 */}
       {isMinimized && (
         <div className="wt-panel-minimized-info">
-          <span>第 {currentStepIndex + 1} / {totalSteps} 步</span>
+          <span>{t('panel_step_info', [String(currentStepIndex + 1), String(totalSteps)])}</span>
         </div>
       )}
     </div>

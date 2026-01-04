@@ -1,6 +1,6 @@
 import type { LessonPlan, ExtractedContent, AISettings } from '@/types';
 import type { AIProvider, ChatMessage } from './base';
-import { LESSON_PLAN_SYSTEM_PROMPT, generateLessonPlanPrompt, CHAT_SYSTEM_PROMPT, generateChatPrompt } from '../prompts';
+import { getLessonPlanSystemPrompt, generateLessonPlanPrompt, getChatSystemPrompt, generateChatPrompt } from '../prompts';
 import { logger } from '@/utils/logger';
 import { parseLessonPlanResponse } from './parser';
 
@@ -42,7 +42,7 @@ export class OpenAIProvider implements AIProvider {
     logger.info('使用 OpenAI 生成教案');
 
     const messages: ChatMessage[] = [
-      { role: 'system', content: LESSON_PLAN_SYSTEM_PROMPT },
+      { role: 'system', content: getLessonPlanSystemPrompt() },
       { role: 'user', content: generateLessonPlanPrompt(content) },
     ];
 
@@ -75,7 +75,7 @@ export class OpenAIProvider implements AIProvider {
 
   async chat(message: string, context: string, settings: AISettings): Promise<string> {
     const messages: ChatMessage[] = [
-      { role: 'system', content: CHAT_SYSTEM_PROMPT },
+      { role: 'system', content: getChatSystemPrompt() },
       { role: 'user', content: generateChatPrompt(message, context) },
     ];
 
