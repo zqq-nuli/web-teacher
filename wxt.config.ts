@@ -9,5 +9,8 @@ export default defineConfig({
     description: '将网页教程转化为交互式引导教学体验',
     permissions: ['storage', 'activeTab'],
     host_permissions: ['<all_urls>'],
+    content_security_policy: {
+      extension_pages: "script-src 'self'; object-src 'self'; style-src 'self' 'unsafe-inline';",
+    },
   },
 });

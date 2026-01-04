@@ -1,7 +1,8 @@
-import type { LessonPlan, ExtractedContent, AISettings, LessonStep } from '@/types';
+import type { LessonPlan, ExtractedContent, AISettings } from '@/types';
 import type { AIProvider } from './base';
 import { LESSON_PLAN_SYSTEM_PROMPT, generateLessonPlanPrompt, CHAT_SYSTEM_PROMPT, generateChatPrompt } from '../prompts';
 import { logger } from '@/utils/logger';
+import { parseLessonPlanResponse } from './parser';
 
 /**
  * Anthropic API Provider
@@ -70,38 +71,7 @@ export class AnthropicProvider implements AIProvider {
       throw new Error('Invalid JSON response from Anthropic');
     }
 
-    // 转换为 LessonPlan 格式
-    const lessonPlan: LessonPlan = {
-      id: `lesson-${Date.now()}`,
-      url: content.url,
-      title: String(parsed.title || content.title),
-      createdAt: Date.now(),
-      steps: (Array.isArray(parsed.steps) ? parsed.steps : []).map((step: Record<string, unknown>, index: number): LessonStep => ({
-        id: String(step.id || `step-${index + 1}`),
-        order: Number(step.order) || index + 1,
-        title: String(step.title || `步骤 ${index + 1}`),
-        content: String(step.content || ''),
-        targetSelector: typeof step.targetElementIndex === 'number'
-          ? content.elements[step.targetElementIndex]?.selector
-          : undefined,
-        highlightType: (['element', 'section', 'modal'].includes(String(step.highlightType))
-          ? String(step.highlightType)
-          : 'element') as LessonStep['highlightType'],
-        popoverPosition: (['top', 'bottom', 'left', 'right'].includes(String(step.popoverPosition))
-          ? String(step.popoverPosition)
-          : 'bottom') as LessonStep['popoverPosition'],
-      })),
-      metadata: {
-        estimatedTime: Number((parsed.metadata as Record<string, unknown>)?.estimatedTime) || 10,
-        difficulty: (['beginner', 'intermediate', 'advanced'].includes(String((parsed.metadata as Record<string, unknown>)?.difficulty))
-          ? String((parsed.metadata as Record<string, unknown>)?.difficulty)
-          : 'beginner') as LessonPlan['metadata']['difficulty'],
-        keywords: Array.isArray((parsed.metadata as Record<string, unknown>)?.keywords)
-          ? ((parsed.metadata as Record<string, unknown>).keywords as string[]).map(String)
-          : [],
-      },
-    };
-
+    const lessonPlan = parseLessonPlanResponse(parsed, content);
     logger.info(`生成了 ${lessonPlan.steps.length} 个教学步骤`);
     return lessonPlan;
   }
